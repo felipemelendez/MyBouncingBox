@@ -1,0 +1,65 @@
+<html style='background-color: black'>
+  <div id="my_bouncing_box" style= "background-color: blue; border-radius: 3px; position: absolute; left: 0px; top: 0px; min-width: 100px; min-height: 100px; text-align: center; font-weight: bold; color: #999;" >Not loaded</div>
+  <script type="text/javascript">
+    document.getElementById('my_bouncing_box').innerHTML = "felipe";
+    var box_position = document.getElementById("my_bouncing_box");
+    var boxHeight = parseInt(document.getElementById("my_bouncing_box").style["min-height"], 10);
+    var boxWidth = parseInt(document.getElementById("my_bouncing_box").style["min-width"], 10);
+    var maxHeight = window.innerHeight - boxHeight;
+    var maxWidth = window.innerWidth - boxWidth;
+    var direction = 'bottom_right';
+    
+    function boxDirection() {
+        box_position.style.left = xPosition;
+        box_position.style.top = yPosition;
+        if (yPosition > maxHeight) {
+            if (direction === 'bottom_right') {
+                direction = 'top_right';
+            } else {
+                direction = 'top_left';
+            }
+        }
+        if (xPosition > maxWidth) {
+            if (direction === 'top_right') {
+                direction = 'top_left';
+            } else {
+                direction = 'bottom_left';
+            }
+        }
+        if (yPosition < 0) {
+            if (direction === 'top_left') {
+                direction = 'bottom_left';
+            } else {
+                direction = 'bottom_right';
+            }
+        }
+        if (xPosition < 0) {
+            if (direction === 'bottom_left') {
+                direction = 'bottom_right';
+            } else {
+                direction = 'top_right';
+            }
+        }
+        boxMotion(direction);
+    }
+    
+    var xPosition = 0;
+    var yPosition = 0;
+    function boxMotion(direction) {
+        if (direction === 'bottom_left') {
+            xPosition--;
+            yPosition++;
+        } else if (direction === 'top_left') {
+            xPosition--;
+            yPosition--;
+        } else if (direction === 'top_right') {
+            xPosition++;
+            yPosition--;
+        } else if (direction === 'bottom_right') {
+            xPosition++;
+            yPosition++;
+        }  
+    }
+    var timeInterval = setInterval(boxDirection, 10);   
+  </script>
+</html>
